@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Birthday Flipbook</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom, #ff7eb3, #ff758c);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .flipbook-container {
+      position: relative;
+      width: 320px;
+      height: 440px;
+    }
+
+    .flipbook {
+      position: relative;
+      width: 300px;
+      height: 400px;
+      perspective: 1500px;
+      overflow: hidden;
+    }
+
+    .page {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: white;
+      border: 1px solid #ccc;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      backface-visibility: hidden;
+      transform-origin: left;
+      transition: transform 0.6s ease, z-index 0.6s;
+    }
+
+    .page img {
+      width: 100%;
+      height: 70%;
+      object-fit: cover;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .page p {
+      padding: 10px;
+      text-align: center;
+      font-size: 16px;
+      color: #555;
+    }
+
+    .front-cover, .back-cover {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(to bottom, #ff758c, #ff7eb3);
+      color: white;
+      font-size: 20px;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .navigation {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+
+    .navigation button {
+      padding: 10px 20px;
+      font-size: 16px;
+      font-weight: bold;
+      color: white;
+      background-color: #ff758c;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .navigation button:hover {
+      background-color: #ff7eb3;
+    }
+  </style>
+</head>
+<body>
+  <div class="flipbook-container">
+    <div class="flipbook">
+      <div class="page front-cover">
+        <h1>Wishing Happiest Birthday!</h1>
+        <p>To my dear buddy...</p>
+      </div>
+      <div class="page">
+        <img src="./WhatsApp Image 2025-01-19 at 22.15.49_5dc927ef.jpg" alt="Image 1">
+        <p>A day filled with joy and laughter...</p>
+      </div>
+      <div class="page">
+        <img src="./WhatsApp Image 2025-01-19 at 22.15.49_65aa39d1.jpg" alt="Image 2">
+        <p>May your dreams come true!</p>
+      </div>
+      <div class="page">
+        <img src="./WhatsApp Image 2025-01-19 at 22.15.50_3fef0519.jpg" alt="Image 3">
+        <p>Celebrating you and your awesomeness...</p>
+      </div>
+      <div class="page">
+        <img src="./WhatsApp Image 2025-01-19 at 22.15.50_4e9af2a3.jpg" alt="Image 4">
+        <p>Here's to more adventures and fun...</p>
+      </div>
+      <div class="page">
+        <img src="./WhatsApp Image 2025-01-19 at 22.16.42_5e41f8a7.jpg" alt="Image 5">
+        <p>You deserve all the happiness in the world!</p>
+      </div>
+      <div class="page back-cover">
+        <h1>Thank You!</h1>
+        <p>For being an amazing friend!</p>
+      </div>
+    </div>
+    <div class="navigation">
+      <button id="prev">Previous</button>
+      <button id="next">Next</button>
+    </div>
+  </div>
+
+  <script>
+    const pages = document.querySelectorAll('.page');
+    const nextButton = document.getElementById('next');
+    const prevButton = document.getElementById('prev');
+    let currentPage = 0;
+
+    // Initialize pages
+    function initializePages() {
+      pages.forEach((page, index) => {
+        if (index === 0) {
+          page.style.transform = 'rotateY(0deg)';
+          page.style.zIndex = pages.length - index;
+        } else {
+          page.style.transform = 'rotateY(180deg)';
+          page.style.zIndex = pages.length - index;
+        }
+      });
+    }
+
+    initializePages();
+
+    // Flip to the next page
+    nextButton.addEventListener('click', () => {
+      if (currentPage < pages.length - 1) {
+        pages[currentPage].style.transform = 'rotateY(-180deg)';
+        pages[currentPage].style.zIndex = pages.length - currentPage - 1;
+        currentPage++;
+      }
+    });
+
+    // Flip to the previous page
+    prevButton.addEventListener('click', () => {
+      if (currentPage > 0) {
+        currentPage--;
+        pages[currentPage].style.transform = 'rotateY(0deg)';
+        pages[currentPage].style.zIndex = pages.length - currentPage;
+      }
+    });
+  </script>
+</body>
+</html>
